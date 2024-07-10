@@ -58,7 +58,7 @@ public class HelloWorld {
         if (vb.length() == 10) {
             Voter voter = new Voter(va, c);
             voters.add(voter);
-            votedIDs.add(c); // Add the ID to the set of voted IDs
+            votedIDs.add(c); 
             voter.display1();
             System.out.println("--------------------------------------------------------------------------");
             System.out.println("STEP 3");
