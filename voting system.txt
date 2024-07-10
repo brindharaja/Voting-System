@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class HelloWorld {
+public class evs {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         List<Integer> arr = new ArrayList<>(Collections.nCopies(12, 0));
