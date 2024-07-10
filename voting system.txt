@@ -3,7 +3,7 @@ import java.util.*;
 public class HelloWorld {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        List<Integer> arr = new ArrayList<>(Collections.nCopies(12, 0)); // Initialize arr with 12 zeros
+        List<Integer> arr = new ArrayList<>(Collections.nCopies(12, 0));
         List<String> parties = new ArrayList<>(Arrays.asList(
             "Dravida Munnetra Kazhagam", "Kongunadu Makkal Desia Katchi",
             "Indian National Congress", "Communist Party of India",
@@ -18,7 +18,7 @@ public class HelloWorld {
             "Edappadi K. Palaniswami", "K. Krishnasamy", "V. M. S. Mohamed Mubarak", "Premalatha Vijayakant"
         ));
         List<Voter> voters = new ArrayList<>();
-        Set<Long> votedIDs = new HashSet<>(); // Set to store voted voter IDs
+        Set<Long> votedIDs = new HashSet<>();
         boolean h = true;
         while (h) {
             System.out.println("--------------------------------------------------------------------------");
@@ -50,8 +50,6 @@ public class HelloWorld {
         System.out.println("VOTER ID : ");
         String vb = sc.nextLine();
         long c = Long.parseLong(vb);
-
-        // Check if the voter has already voted
         if (votedIDs.contains(c)) {
             System.out.println("You have already voted. You cannot vote again.");
             return;
@@ -71,7 +69,7 @@ public class HelloWorld {
             System.out.println("Enter your choice:");
             int ch = sc.nextInt();
             if (ch >= 1 && ch <= candidates.size()) {
-                arr.set(ch - 1, arr.get(ch - 1) + 1); // Increment the vote count for the selected candidate
+                arr.set(ch - 1, arr.get(ch - 1) + 1); 
                 System.out.println("Your vote has been recorded successfully.");
             } else {
                 System.out.println("Invalid choice! Please select a candidate within the valid range.");
@@ -103,7 +101,7 @@ public class HelloWorld {
                     int cho = sc.nextInt();
                     switch (cho) {
                         case 1:
-                            login2.display2(arr); // Pass arr list to update it
+                            login2.display2(arr); 
                             break;
                         case 2:
                             login2.display3(voters);
@@ -166,7 +164,7 @@ class Login2 {
             switch (choi) {
                 case 1:
                     for (int i = 0; i < parties.size(); i++) {
-                        System.out.println(parties.get(i) + ": " + candidates.get(i) + " - Votes: " + arr.get(i)); // Use arr list instead of count
+                        System.out.println(parties.get(i) + ": " + candidates.get(i) + " - Votes: " + arr.get(i));
                     }
                     break;
                 case 2:
@@ -176,7 +174,7 @@ class Login2 {
                     String m = sc.next();
                     candidates.add(n);
                     parties.add(m);
-                    arr.add(0); // Add a new element with initial vote count of 0
+                    arr.add(0); 
                     System.out.println("Candidate and party added successfully.");
                     break;
                 case 3:
