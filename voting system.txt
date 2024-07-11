@@ -1,9 +1,14 @@
 import java.util.*;
-
-public class evs {
+import java.text.SimpleDateFormat;
+import java.util.Date;
+public class votingsystem {
     public static void main(String[] args) {
+        System.out.println("*************************WELCOME TO ONLINE VOTING*************************");
+        String pattern = "MM-dd-yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        String date = simpleDateFormat.format(new Date());
         Scanner sc = new Scanner(System.in);
-        List<Integer> arr = new ArrayList<>(Collections.nCopies(12, 0));
+        List<Integer> arr = new ArrayList<>(Arrays.asList(0,0,0,0,0,0,0,0,0,0,0,0)); 
         List<String> parties = new ArrayList<>(Arrays.asList(
             "Dravida Munnetra Kazhagam", "Kongunadu Makkal Desia Katchi",
             "Indian National Congress", "Communist Party of India",
@@ -28,12 +33,18 @@ public class evs {
             sc.nextLine();
             switch (choice) {
                 case 1:
+                    if(date.equals("07-11-2024")){
                     step2User(sc, arr, parties, candidates, voters, votedIDs);
+                    }
+                    else{
+                        System.out.println("There is no election today..");
+                    }
                     break;
                 case 2:
                     step2Admin(sc, arr, parties, candidates, voters);
                     break;
                 case 3:
+                    System.out.println("--------------------------------Thank you---------------------------------");
                     h = false;
                     break;
                 default:
@@ -47,7 +58,7 @@ public class evs {
         System.out.println("STEP 2");
         System.out.println("FULLNAME : ");
         String va = sc.nextLine();
-        System.out.println("VOTER ID : ");
+        System.out.println("VOTER ID (Must enter 10 digit): ");
         String vb = sc.nextLine();
         long c = Long.parseLong(vb);
         if (votedIDs.contains(c)) {
@@ -58,7 +69,7 @@ public class evs {
         if (vb.length() == 10) {
             Voter voter = new Voter(va, c);
             voters.add(voter);
-            votedIDs.add(c); 
+            votedIDs.add(c);
             voter.display1();
             System.out.println("--------------------------------------------------------------------------");
             System.out.println("STEP 3");
@@ -154,40 +165,72 @@ class Login2 {
     }
 
     void display2(List<Integer> arr) {
-        boolean z = true;
-        while (z) {
-            System.out.println("--------------------------------------------------------------------------");
-            System.out.println("STEP 4");
-            System.out.println("LIST OF CANDIDATE AND PARTIES");
-            System.out.println("1.Show list\n2.Add candidate&parties\n3.Back");
-            int choi = sc.nextInt();
-            switch (choi) {
-                case 1:
-                    for (int i = 0; i < parties.size(); i++) {
-                        System.out.println(parties.get(i) + ": " + candidates.get(i) + " - Votes: " + arr.get(i));
-                    }
-                    break;
-                case 2:
-                    System.out.println("Enter candidate name:");
-                    String n = sc.next();
-                    System.out.println("Enter party name:");
-                    String m = sc.next();
-                    candidates.add(n);
-                    parties.add(m);
-                    arr.add(0); 
-                    System.out.println("Candidate and party added successfully.");
-                    break;
-                case 3:
-                    z = false;
-                    break;
-                default:
-                    System.out.println("Invalid choice..");
+    boolean z = true;
+    while (z) {
+        System.out.println("--------------------------------------------------------------------------");
+        System.out.println("STEP 4");
+        System.out.println("LIST OF CANDIDATE AND PARTIES");
+        System.out.println("1.Show list\n2.Add candidate&parties\n3.Remove candidate&parties\n4.Back");
+        int choi = 0;
+        while (true) {
+            System.out.println("Enter your choice:");
+            try {
+                choi = Integer.parseInt(sc.nextLine());
+                break; 
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number.");
             }
         }
+        switch (choi) {
+            case 1:
+                for (int i = 0; i < parties.size(); i++) {
+                    System.out.println(parties.get(i) + ": " + candidates.get(i) + " - Votes: " + arr.get(i));
+                }
+                break;
+            case 2:
+                System.out.println("Enter candidate name:");
+                String n = sc.nextLine();
+                System.out.println("Enter party name:");
+                String m = sc.nextLine();
+                candidates.add(n);
+                parties.add(m);
+                arr.add(0);
+                System.out.println("Candidate and party added successfully.");
+                break;
+            case 3:
+                System.out.println("Enter candidate & parties(1-"+arr.size()+"):");
+                int index = 0;
+                while (true) {
+                    try {
+                        index = Integer.parseInt(sc.nextLine());
+                        if (index >= 1 && index <= candidates.size()) {
+                            break; 
+                        } else {
+                            System.out.println("Invalid index. Please enter a valid index.");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid input. Please enter a number.");
+                    }
+                }
+                String removedCandidate = candidates.remove(index - 1);
+                String removedParty = parties.remove(index - 1);
+                arr.remove(index - 1);
+                System.out.println("Candidate '" + removedCandidate + "' from party '" + removedParty + "' removed successfully.");
+                break;
+            case 4:
+                z = false;
+                break;
+            default:
+                System.out.println("Invalid choice. Please select a valid option.");
+        }
     }
+}
 
     void display3(List<Voter> voters) {
         System.out.println("Voter Details:");
+        if(voters.size()==0){
+            System.out.println("No one is Voted");
+        }
         for (Voter voter : voters) {
             System.out.println("Name: " + voter.fname + ", Voter ID: " + voter.vid);
         }
